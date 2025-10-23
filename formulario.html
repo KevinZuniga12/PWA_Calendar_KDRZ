@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Calendar - Formulario</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .form-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .nav-link.active {
+            background-color: #007bff !important;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a6bd8 0%, #6a4190 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-calendar-alt me-2"></i>PWA Calendar
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="fas fa-calendar me-1"></i>Calendario
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="formulario.html">
+                            <i class="fas fa-edit me-1"></i>Formulario
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Form Section -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-white text-center mt-4 mb-3">
+                    <i class="fas fa-plus-circle me-2"></i>Crear Nuevo Evento
+                </h1>
+                
+                <div class="form-container">
+                    <form id="eventForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="eventTitle" class="form-label">
+                                    <i class="fas fa-heading me-1"></i>Título del Evento *
+                                </label>
+                                <input type="text" class="form-control" id="eventTitle" required 
+                                       placeholder="Ej: Reunión de trabajo">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="eventCategory" class="form-label">
+                                    <i class="fas fa-tags me-1"></i>Categoría
+                                </label>
+                                <select class="form-select" id="eventCategory">
+                                    <option value="">Seleccionar categoría</option>
+                                    <option value="trabajo">Trabajo</option>
+                                    <option value="personal">Personal</option>
+                                    <option value="salud">Salud</option>
+                                    <option value="educacion">Educación</option>
+                                    <option value="entretenimiento">Entretenimiento</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="eventDate" class="form-label">
+                                    <i class="fas fa-calendar me-1"></i>Fecha *
+                                </label>
+                                <input type="date" class="form-control" id="eventDate" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="eventTime" class="form-label">
+                                    <i class="fas fa-clock me-1"></i>Hora
+                                </label>
+                                <input type="time" class="form-control" id="eventTime">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="eventPriority" class="form-label">
+                                    <i class="fas fa-exclamation-triangle me-1"></i>Prioridad
+                                </label>
+                                <select class="form-select" id="eventPriority">
+                                    <option value="baja">Baja</option>
+                                    <option value="media" selected>Media</option>
+                                    <option value="alta">Alta</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="eventColor" class="form-label">
+                                    <i class="fas fa-palette me-1"></i>Color del Evento
+                                </label>
+                                <select class="form-select" id="eventColor">
+                                    <option value="#007bff">Azul (Predeterminado)</option>
+                                    <option value="#28a745">Verde</option>
+                                    <option value="#dc3545">Rojo</option>
+                                    <option value="#ffc107">Amarillo</option>
+                                    <option value="#6f42c1">Púrpura</option>
+                                    <option value="#fd7e14">Naranja</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="eventDescription" class="form-label">
+                                <i class="fas fa-align-left me-1"></i>Descripción
+                            </label>
+                            <textarea class="form-control" id="eventDescription" rows="3" 
+                                      placeholder="Describe los detalles del evento..."></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="eventLocation" class="form-label">
+                                <i class="fas fa-map-marker-alt me-1"></i>Ubicación
+                            </label>
+                            <input type="text" class="form-control" id="eventLocation" 
+                                   placeholder="Ej: Oficina, Casa, Online">
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="allDayEvent">
+                                    <label class="form-check-label" for="allDayEvent">
+                                        <i class="fas fa-sun me-1"></i>Evento de todo el día
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="reminderEvent">
+                                    <label class="form-check-label" for="reminderEvent">
+                                        <i class="fas fa-bell me-1"></i>Recordatorio
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a href="calendario.html" class="btn btn-secondary me-md-2">
+                                <i class="fas fa-times me-1"></i>Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save me-1"></i>Guardar Evento
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Success Alert -->
+                <div class="alert alert-success d-none" id="successAlert">
+                    <i class="fas fa-check-circle me-2"></i>
+                    ¡Evento creado exitosamente! <a href="calendario.html" class="alert-link">Ver en calendario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bootstrap.min.js"></script>
+    <script src="main.js"></script>
+    
+    <script>
+        // Obtener parámetros de URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const dateParam = urlParams.get('date');
+        
+        // Si hay una fecha en la URL, establecerla en el formulario
+        if (dateParam) {
+            document.getElementById('eventDate').value = dateParam;
+        }
+
+        // Colores según categoría
+        const categoryColors = {
+            'trabajo': '#007bff',
+            'personal': '#28a745',
+            'salud': '#dc3545',
+            'educacion': '#6f42c1',
+            'entretenimiento': '#ffc107',
+            'otro': '#fd7e14'
+        };
+
+        // Cambiar color automáticamente según categoría
+        document.getElementById('eventCategory').addEventListener('change', function() {
+            const category = this.value;
+            const colorSelect = document.getElementById('eventColor');
+            
+            if (category && categoryColors[category]) {
+                colorSelect.value = categoryColors[category];
+            }
+        });
+
+        // Manejar envío del formulario
+        document.getElementById('eventForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('eventTitle').value;
+            const date = document.getElementById('eventDate').value;
+            const time = document.getElementById('eventTime').value;
+            const category = document.getElementById('eventCategory').value;
+            const priority = document.getElementById('eventPriority').value;
+            const color = document.getElementById('eventColor').value;
+            const description = document.getElementById('eventDescription').value;
+            const location = document.getElementById('eventLocation').value;
+            const allDay = document.getElementById('allDayEvent').checked;
+            const reminder = document.getElementById('reminderEvent').checked;
+            
+            // Crear objeto del evento
+            const eventData = {
+                id: Date.now().toString(),
+                title: title,
+                start: allDay ? date : `${date}T${time || '09:00'}`,
+                allDay: allDay,
+                backgroundColor: color,
+                borderColor: color,
+                category: category,
+                priority: priority,
+                description: description,
+                location: location,
+                reminder: reminder
+            };
+            
+            // Guardar en localStorage
+            const events = JSON.parse(localStorage.getItem('calendarEvents') || '[]');
+            events.push(eventData);
+            localStorage.setItem('calendarEvents', JSON.stringify(events));
+            
+            // Mostrar mensaje de éxito
+            document.getElementById('successAlert').classList.remove('d-none');
+            
+            // Limpiar formulario
+            this.reset();
+            
+            // Auto-redirect después de 2 segundos
+            setTimeout(() => {
+                window.location.href = 'calendario.html';
+            }, 2000);
+        });
+
+        // Validación de fecha mínima (no permitir fechas pasadas)
+        document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
+    </script>
+</body>
+</html>

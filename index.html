@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWA Calendar - Inicio</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .navbar-brand {
+            font-weight: bold;
+        }
+        .hero-section {
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+        .feature-card {
+            transition: transform 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .back-btn {
+            position: absolute;
+            top: 70px;
+            left: 20px;
+            background: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .back-btn:hover {
+            background: #5a6268;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <a href="../index.html" class="back-btn">← Volver</a>
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-calendar-alt me-2"></i>PWA Calendar
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">
+                            <i class="fas fa-home me-1"></i>Inicio
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="calendario.html">
+                            <i class="fas fa-calendar me-1"></i>Calendario
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="formulario.html">
+                            <i class="fas fa-edit me-1"></i>Formulario
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <h1 class="display-4 mb-4">Bienvenido a PWA Calendar</h1>
+            <p class="lead mb-4">Una aplicación web progresiva para gestionar tus eventos y tareas</p>
+            <a href="calendario.html" class="btn btn-light btn-lg">
+                <i class="fas fa-calendar-plus me-2"></i>Ver Calendario
+            </a>
+        </div>
+    </div>
+
+    <!-- Features Section
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-calendar-alt fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Calendario Interactivo</h5>
+                        <p class="card-text">Visualiza y gestiona tus eventos con FullCalendar</p>
+                        <a href="calendario.html" class="btn btn-primary">Ver Calendario</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-edit fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Formularios</h5>
+                        <p class="card-text">Crea y edita eventos fácilmente</p>
+                        <a href="formulario.html" class="btn btn-success">Crear Evento</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card feature-card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-wifi fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">Funciona Offline</h5>
+                        <p class="card-text">Accede a tu calendario sin conexión</p>
+                        <button class="btn btn-info" disabled>PWA Activa</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <script src="bootstrap.min.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>

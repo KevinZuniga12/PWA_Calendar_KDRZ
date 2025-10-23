@@ -1,13 +1,17 @@
-const APP_SHELL_CACHE = 'app-shell-v1';
-const DYNAMIC_CACHE = 'dynamic-cache-v1';
+const APP_SHELL_CACHE = 'app-shell-v2';
+const DYNAMIC_CACHE = 'dynamic-cache-v2';
 
 const APP_SHELL_RESOURCES = [
     './',
     './index.html',
+    './calendario.html',
+    './formulario.html',
     './main.js',
     './manifest.json',
     './bootstrap.min.css',
     './bootstrap.min.js',
+    './icons/icon-192x192.svg',
+    './icons/icon-512x512.svg',
     'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css'
 ];
 
@@ -61,15 +65,17 @@ self.addEventListener('fetch', event => {
     const { request } = event;
     const url = new URL(request.url);
     
+    // Handle app shell resources (core files)
     if (
         url.pathname === '/' ||
-        url.pathname === '/CalendarCache/' ||
-        url.pathname === '/CalendarCache/index.html' ||
-        url.pathname === '/CalendarCache/main.js' ||
-        url.pathname === '/CalendarCache/bootstrap.min.css' ||
-        url.pathname === '/CalendarCache/bootstrap.min.js' ||
-        url.pathname === '/CalendarCache/manifest.json' ||
-        url.href.includes('fontawesome')
+        url.pathname.endsWith('/') ||
+        url.pathname.endsWith('.html') ||
+        url.pathname.endsWith('.js') ||
+        url.pathname.endsWith('.css') ||
+        url.pathname.includes('/icons/') ||
+        url.pathname.endsWith('manifest.json') ||
+        url.href.includes('fontawesome') ||
+        url.href.includes('bootstrap')
     ) {
         event.respondWith(
             caches.match(request)
@@ -78,7 +84,7 @@ self.addEventListener('fetch', event => {
                         console.log('[App Shell] ✅ From cache:', request.url);
                         return response;
                     }
-                    console.warn('[App Shell] ❌ Not found, fetching:', request.url);
+                    console.log('[App Shell] 🌐 Fetching:', request.url);
                     return fetch(request)
                         .then(networkResponse => {
                             if (networkResponse && networkResponse.status === 200) {
@@ -93,8 +99,69 @@ self.addEventListener('fetch', event => {
                         })
                         .catch(error => {
                             console.error('[App Shell] 💥 Network failed:', request.url, error);
-                            return new Response('<h1>Offline</h1><p>Esta página no está disponible sin conexión.</p>', {
-                                headers: { 'Content-Type': 'text/html' }
+                            
+                            // Return offline fallback for HTML pages
+                            if (request.destination === 'document') {
+                                return new Response(`
+                                    <!DOCTYPE html>
+                                    <html lang="es">
+                                    <head>
+                                        <meta charset="UTF-8">
+                                        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                        <title>Sin Conexión - PWA Calendar</title>
+                                        <style>
+                                            body { 
+                                                font-family: Arial, sans-serif; 
+                                                text-align: center; 
+                                                padding: 50px; 
+                                                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                                                color: white;
+                                                min-height: 100vh;
+                                                margin: 0;
+                                                display: flex;
+                                                flex-direction: column;
+                                                justify-content: center;
+                                            }
+                                            .offline-content {
+                                                background: rgba(255,255,255,0.1);
+                                                padding: 40px;
+                                                border-radius: 10px;
+                                                backdrop-filter: blur(10px);
+                                            }
+                                            button {
+                                                background: #4f46e5;
+                                                color: white;
+                                                border: none;
+                                                padding: 12px 24px;
+                                                border-radius: 6px;
+                                                cursor: pointer;
+                                                margin-top: 20px;
+                                                font-size: 16px;
+                                            }
+                                            button:hover {
+                                                background: #3730a3;
+                                            }
+                                        </style>
+                                    </head>
+                                    <body>
+                                        <div class="offline-content">
+                                            <h1>📅 PWA Calendar</h1>
+                                            <h2>Sin Conexión</h2>
+                                            <p>Esta página no está disponible sin conexión.</p>
+                                            <p>Por favor, verifica tu conexión a internet e intenta nuevamente.</p>
+                                            <button onclick="window.location.reload()">Reintentar</button>
+                                            <button onclick="window.history.back()">Volver</button>
+                                        </div>
+                                    </body>
+                                    </html>
+                                `, {
+                                    headers: { 'Content-Type': 'text/html' }
+                                });
+                            }
+                            
+                            return new Response('Sin conexión', {
+                                status: 503,
+                                statusText: 'Service Unavailable'
                             });
                         });
                 })
@@ -102,16 +169,16 @@ self.addEventListener('fetch', event => {
         return;
     }
     
+    // Handle dynamic resources (external libraries, APIs)
     if (
-        url.pathname === '/CalendarCache/calendario.html' ||
-        url.pathname === '/CalendarCache/formulario.html' ||
-        url.pathname === '/calendario.html' ||
-        url.pathname === '/formulario.html' ||
         url.href.includes('fullcalendar') ||
         url.href.includes('select2') ||
         url.href.includes('jquery') ||
         url.href.includes('jsdelivr') ||
-        url.href.includes('cdnjs')
+        url.href.includes('cdnjs') ||
+        url.href.includes('googleapis') ||
+        request.destination === 'script' ||
+        request.destination === 'style'
     ) {
         event.respondWith(
             caches.match(request)
@@ -146,7 +213,7 @@ self.addEventListener('fetch', event => {
         return;
     }
     
-    // Para recursos de datos (POST, PUT, etc.) o localStorage APIs
+    // Handle API calls and form submissions
     if (request.method !== 'GET') {
         event.respondWith(
             fetch(request)
@@ -156,16 +223,30 @@ self.addEventListener('fetch', event => {
                 })
                 .catch(error => {
                     console.log('[Data] API call failed offline:', request.url);
-                    // Puedes retornar una respuesta offline personalizada aquí
                     return new Response(JSON.stringify({
                         error: true,
                         message: 'Sin conexión - datos no sincronizados',
-                        offline: true
+                        offline: true,
+                        timestamp: new Date().toISOString()
                     }), {
-                        headers: { 'Content-Type': 'application/json' }
+                        headers: { 'Content-Type': 'application/json' },
+                        status: 503
                     });
                 })
         );
         return;
     }
+    
+    // Default: try network first, then cache
+    event.respondWith(
+        fetch(request)
+            .then(response => {
+                console.log('[Default] Network response:', request.url);
+                return response;
+            })
+            .catch(() => {
+                console.log('[Default] Trying cache for:', request.url);
+                return caches.match(request);
+            })
+    );
 });

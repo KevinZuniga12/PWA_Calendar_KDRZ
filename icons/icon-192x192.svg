@@ -1,0 +1,18 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="192" height="192" fill="#667eea"/>
+  <rect x="20" y="40" width="152" height="132" rx="8" fill="white"/>
+  <rect x="20" y="40" width="152" height="40" rx="8" fill="#4f46e5"/>
+  <text x="96" y="65" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16" font-weight="bold">PWA Calendar</text>
+  <rect x="30" y="90" width="20" height="16" fill="#e5e7eb"/>
+  <rect x="55" y="90" width="20" height="16" fill="#e5e7eb"/>
+  <rect x="80" y="90" width="20" height="16" fill="#e5e7eb"/>
+  <rect x="105" y="90" width="20" height="16" fill="#e5e7eb"/>
+  <rect x="130" y="90" width="20" height="16" fill="#e5e7eb"/>
+  <rect x="155" y="90" width="12" height="16" fill="#e5e7eb"/>
+  <rect x="30" y="110" width="20" height="16" fill="#f3f4f6"/>
+  <rect x="55" y="110" width="20" height="16" fill="#f3f4f6"/>
+  <rect x="80" y="110" width="20" height="16" fill="#4f46e5"/>
+  <rect x="105" y="110" width="20" height="16" fill="#f3f4f6"/>
+  <rect x="130" y="110" width="20" height="16" fill="#f3f4f6"/>
+  <rect x="155" y="110" width="12" height="16" fill="#f3f4f6"/>
+</svg>
